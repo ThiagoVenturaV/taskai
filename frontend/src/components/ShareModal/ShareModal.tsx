@@ -46,7 +46,7 @@ export function ShareModal() {
   }
 
   return (
-    <Modal title="SHARE" onClose={closeShareModal}>
+    <Modal title="COMPARTILHAR" onClose={closeShareModal}>
       {/* URL section */}
       <div className={styles.section}>
         <p className={styles.label}>URL</p>
@@ -69,7 +69,7 @@ export function ShareModal() {
 
       {/* Users section */}
       <div className={styles.section}>
-        <p className={styles.label}>Users Friend</p>
+        <p className={styles.label}>Amigos</p>
 
         <div className={styles.searchRow}>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -80,7 +80,7 @@ export function ShareModal() {
             id="share-search-input"
             className={styles.searchInput}
             type="text"
-            placeholder="Search friends..."
+            placeholder="Buscar amigos..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             aria-label="Buscar usuários para compartilhar"
@@ -99,7 +99,7 @@ export function ShareModal() {
                 disabled={user.added}
                 aria-label={user.added ? `${user.name} já adicionado` : `Adicionar ${user.name}`}
               >
-                {user.added ? 'Added' : 'Add'}
+                {user.added ? 'Adicionado' : 'Adicionar'}
               </button>
             </li>
           ))}

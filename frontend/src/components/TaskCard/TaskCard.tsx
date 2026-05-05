@@ -87,7 +87,7 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
           </p>
 
           {formattedDue && (
-            <p className={styles.dueDate}>Due {formattedDue}</p>
+            <p className={styles.dueDate}>Vence em {formattedDue}</p>
           )}
 
           {task.tag && <span className={styles.tag}>{task.tag}</span>}

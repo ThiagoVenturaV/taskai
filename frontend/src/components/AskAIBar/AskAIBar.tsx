@@ -118,11 +118,11 @@ export function AskAIBar() {
             id="ask-ai-input"
             className={styles.input}
             type="text"
-            placeholder="Ask AI or search tasks..."
+            placeholder="Peça para a IA ou busque tarefas..."
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            aria-label="Ask AI or search tasks"
+            aria-label="Peça para a IA ou busque tarefas"
             disabled={isLoading}
           />
 

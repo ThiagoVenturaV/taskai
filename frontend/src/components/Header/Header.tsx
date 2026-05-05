@@ -29,7 +29,7 @@ export function Header() {
               onClick={openShareModal}
               aria-label="Compartilhar quadro"
             >
-              Share
+              Compartilhar
             </button>
             <button
               id="logout-btn"
@@ -48,7 +48,7 @@ export function Header() {
               onClick={openLoginModal}
               aria-label="Fazer login"
             >
-              Login
+              Entrar
             </button>
             <button
               id="share-btn"
@@ -56,7 +56,7 @@ export function Header() {
               onClick={openShareModal}
               aria-label="Compartilhar quadro"
             >
-              Share
+              Compartilhar
             </button>
           </>
         )}

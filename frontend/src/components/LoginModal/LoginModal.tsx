@@ -36,12 +36,12 @@ export function LoginModal() {
     <Modal title="LOGIN" onClose={closeLoginModal}>
       <form id="login-form" className={styles.form} onSubmit={handleSubmit} noValidate>
         <div className={styles.field}>
-          <label className={styles.label} htmlFor="login-email">Login</label>
+          <label className={styles.label} htmlFor="login-email">Email</label>
           <input
             id="login-email"
             className={styles.input}
             type="email"
-            placeholder="Enter username"
+            placeholder="Digite seu email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
@@ -55,7 +55,7 @@ export function LoginModal() {
             id="login-password"
             className={styles.input}
             type="password"
-            placeholder="Enter password"
+            placeholder="Digite sua senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
@@ -71,7 +71,7 @@ export function LoginModal() {
           className={styles.submitBtn}
           disabled={isLoading || !email || !password}
         >
-          {isLoading ? 'Entrando...' : 'SIGN IN'}
+          {isLoading ? 'Entrando...' : 'ENTRAR'}
         </button>
       </form>
 
