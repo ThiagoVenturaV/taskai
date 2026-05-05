@@ -1,0 +1,35 @@
+.board {
+  padding: var(--space-4) var(--space-6) var(--space-8);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  min-height: calc(100vh - 140px);
+  align-items: start;
+  background-color: var(--color-white);
+}
+
+@media (max-width: 960px) {
+  .board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Empty state message */
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-10);
+  color: var(--color-gray-text);
+  font-size: var(--font-size-md);
+}
+
+.emptyStateHint {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-sm);
+}

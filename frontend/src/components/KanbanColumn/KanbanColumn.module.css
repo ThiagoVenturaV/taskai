@@ -1,0 +1,119 @@
+.column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Column header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-black);
+  margin-bottom: var(--space-3);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--color-black);
+}
+
+.count {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-text);
+}
+
+/* Task list */
+.taskList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-height: 48px;
+}
+
+/* Drop zone highlight */
+.column.dragOver .taskList {
+  background: var(--color-gray-light);
+  border-radius: var(--radius-card);
+  outline: 2px dashed var(--color-gray-border);
+  outline-offset: 2px;
+}
+
+/* Add task button */
+.addBtn {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  width: 100%;
+  border: 1px dashed var(--color-gray-border);
+  border-radius: var(--radius-card);
+  background: transparent;
+  color: var(--color-gray-text);
+  font-size: var(--font-size-sm);
+  text-align: left;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+
+.addBtn:hover {
+  border-color: var(--color-black);
+  color: var(--color-black);
+  background: var(--color-gray-light);
+}
+
+/* Quick-add form */
+.addForm {
+  margin-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.addInput {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-black);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+}
+
+.addInput::placeholder {
+  color: var(--color-gray-text);
+}
+
+.addActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.addSubmit {
+  flex: 1;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-black);
+  color: var(--color-white);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: background var(--transition-fast);
+}
+
+.addSubmit:hover {
+  background: #222222;
+}
+
+.addCancel {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-gray-border);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-text);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.addCancel:hover {
+  border-color: var(--color-black);
+  color: var(--color-black);
+}
