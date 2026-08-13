@@ -7,6 +7,7 @@ import type {
   Task,
   ColumnId,
   FriendUser,
+  AiResponse,
 } from '../types';
 
 // ─── Axios Instance ───────────────────────────────────────────────────────────
@@ -74,6 +75,11 @@ export const uploadApi = {
       })
       .then((r) => r.data);
   },
+};
+
+export const aiApi = {
+  ask: (prompt: string): Promise<AiResponse> =>
+    api.post<AiResponse>('/ai', { prompt }).then((r) => r.data),
 };
 
 // ─── Users / Share ────────────────────────────────────────────────────────────

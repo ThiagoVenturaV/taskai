@@ -19,8 +19,8 @@ export function LoginModal() {
 
     try {
       await login(email, password);
-    } catch (err: any) {
-      const msg = err?.response?.data?.error || 'Credenciais inválidas.';
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { error?: string } } }).response?.data?.error || 'Credenciais inválidas.';
       setError(msg);
     } finally {
       setIsLoading(false);

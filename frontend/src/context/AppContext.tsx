@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useContext,
   useState,
@@ -69,6 +69,8 @@ interface AppActions {
 
 const AppContext = createContext<(AppState & AppActions) | null>(null);
 
+// This module intentionally exports the provider and its matching hook.
+// eslint-disable-next-line react-refresh/only-export-components
 export function useApp(): AppState & AppActions {
   const ctx = useContext(AppContext);
   if (!ctx) throw new Error('useApp must be used inside AppProvider');
@@ -78,8 +80,9 @@ export function useApp(): AppState & AppActions {
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
 export function AppProvider({ children }: { children: ReactNode }) {
+  const [hasStoredToken] = useState(() => Boolean(localStorage.getItem('taskai_token')));
   const [user, setUser] = useState<User | null>(null);
-  const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const [isAuthLoading, setIsAuthLoading] = useState(hasStoredToken);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isTasksLoading, setIsTasksLoading] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -88,14 +91,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   // ── Bootstrap auth from stored token ──────────────────────────────────────
   useEffect(() => {
-    const token = localStorage.getItem('taskai_token');
-    if (!token) { setIsAuthLoading(false); return; }
+    if (!hasStoredToken) return;
 
     authApi.me()
       .then(({ user }) => setUser(user))
       .catch(() => localStorage.removeItem('taskai_token'))
       .finally(() => setIsAuthLoading(false));
-  }, []);
+  }, [hasStoredToken]);
 
   // ── Load tasks when authenticated ─────────────────────────────────────────
   const refreshTasks = useCallback(async () => {
@@ -109,7 +111,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }, [user]);
 
-  useEffect(() => { refreshTasks(); }, [refreshTasks]);
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => void refreshTasks(), 0);
+    return () => window.clearTimeout(timeoutId);
+  }, [refreshTasks]);
 
   // ── Auth actions ──────────────────────────────────────────────────────────
   const login = useCallback(async (email: string, password: string) => {
@@ -119,12 +124,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setIsLoginModalOpen(false);
   }, []);
 
-  const register = useCallback(async (payload: Parameters<typeof authApi.register>[0]) => {
+  const register = async (payload: Parameters<typeof authApi.register>[0]) => {
     const { token, user } = await authApi.register(payload);
     localStorage.setItem('taskai_token', token);
     setUser(user);
     setPage('board');
-  }, []);
+  };
 
   const logout = useCallback(() => {
     localStorage.removeItem('taskai_token');
