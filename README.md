@@ -24,7 +24,7 @@ npm run dev
 
 ```bash
 cd frontend
-cp .env.example .env   # Preencha VITE_GROQ_API_KEY e VITE_API_BASE_URL
+cp .env.example .env   # Preencha apenas VITE_API_BASE_URL
 npm run dev
 ```
 
@@ -44,4 +44,3 @@ O backend ficará disponível em `http://localhost:3001`
 | Variável | Descrição |
 |---|---|
 | `VITE_API_BASE_URL` | URL base da API backend |
-| `VITE_GROQ_API_KEY` | Chave da API Groq (para chamadas diretas) |

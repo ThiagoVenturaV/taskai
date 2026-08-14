@@ -1,4 +1,3 @@
-import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { Header } from './components/Header/Header';
 import { AskAIBar } from './components/AskAIBar/AskAIBar';

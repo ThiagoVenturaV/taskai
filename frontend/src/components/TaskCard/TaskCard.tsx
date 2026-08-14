@@ -40,6 +40,12 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type) || file.size > 2 * 1024 * 1024) {
+      alert('Use uma imagem JPEG, PNG, GIF ou WebP de até 2MB.');
+      e.target.value = '';
+      return;
+    }
     setIsUploading(true);
     try {
       const { imageUrl } = await uploadApi.uploadImage(file, task.id);
@@ -53,7 +59,7 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
   }
 
   const imageFullUrl = task.imageUrl
-    ? task.imageUrl.startsWith('http')
+    ? task.imageUrl.startsWith('http') || task.imageUrl.startsWith('data:image/')
       ? task.imageUrl
       : `${API_BASE}${task.imageUrl}`
     : null;
@@ -110,7 +116,7 @@ export function TaskCard({ task, onDragStart }: TaskCardProps) {
             ref={fileInputRef}
             type="file"
             className={styles.uploadInput}
-            accept="image/*"
+            accept="image/jpeg,image/png,image/gif,image/webp"
             onChange={handleFileChange}
             aria-label="Upload de imagem para a tarefa"
           />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Modal } from '../ui/Modal';
 import { useApp } from '../../context/AppContext';
 import { usersApi } from '../../services/apiClient';

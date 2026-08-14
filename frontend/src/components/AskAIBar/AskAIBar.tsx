@@ -1,11 +1,18 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef, type KeyboardEvent } from 'react';
 import { useApp } from '../../context/AppContext';
 import { askAI } from '../../services/groqService';
 import type { AiAction, ColumnId } from '../../types';
 import styles from './AskAIBar.module.css';
 
 export function AskAIBar() {
-  const { tasks, addTask, updateTask, deleteTask } = useApp();
+  const {
+    tasks,
+    addTask,
+    updateTask,
+    deleteTask,
+    isAuthenticated,
+    openLoginModal,
+  } = useApp();
   const [value, setValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState('');
@@ -15,13 +22,19 @@ export function AskAIBar() {
   async function handleSubmit() {
     const prompt = value.trim();
     if (!prompt || isLoading) return;
+    if (!isAuthenticated) {
+      setFeedback('Faça login para usar o agente de IA com segurança.');
+      setIsError(true);
+      openLoginModal();
+      return;
+    }
 
     setIsLoading(true);
     setFeedback('');
     setIsError(false);
 
     try {
-      const aiResponse = await askAI(prompt, tasks);
+      const aiResponse = await askAI(prompt);
       await executeActions(aiResponse.actions);
       setFeedback(aiResponse.message || 'Pronto!');
       setValue('');
@@ -76,7 +89,14 @@ export function AskAIBar() {
         case 'update': {
           const target = findTaskByTitle(action.targetTitle);
           if (target && action.task) {
-            await updateTask(target.id, { ...action.task } as any);
+            const { title, description, dueDate, tag, columnId } = action.task;
+            await updateTask(target.id, {
+              ...(title !== undefined ? { title } : {}),
+              ...(description !== undefined ? { description } : {}),
+              ...(dueDate !== undefined ? { dueDate } : {}),
+              ...(tag !== undefined ? { tag } : {}),
+              ...(columnId !== undefined ? { columnId } : {}),
+            });
           }
           break;
         }
@@ -99,7 +119,7 @@ export function AskAIBar() {
     );
   }
 
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') handleSubmit();
   }
 
@@ -124,6 +144,7 @@ export function AskAIBar() {
             onKeyDown={handleKeyDown}
             aria-label="Peça para a IA ou busque tarefas"
             disabled={isLoading}
+            maxLength={1000}
           />
 
           <button

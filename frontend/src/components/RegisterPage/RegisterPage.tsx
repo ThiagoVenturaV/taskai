@@ -37,8 +37,8 @@ export function RegisterPage() {
         password: form.password,
         referral: form.referral || undefined,
       });
-    } catch (err: any) {
-      const msg = err?.response?.data?.error || 'Erro ao criar conta. Tente novamente.';
+    } catch (err: unknown) {
+      const msg = (err as { response?: { data?: { error?: string } } }).response?.data?.error || 'Erro ao criar conta. Tente novamente.';
       setError(msg);
     } finally {
       setIsLoading(false);
