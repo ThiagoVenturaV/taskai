@@ -1,6 +1,6 @@
 # Task AI — Monorepo
 
-Kanban board com gestão de tarefas por agente de IA (Groq · Llama 3.3 70B).
+Kanban board com gestão de tarefas por agente de IA (Groq · GPT-OSS 120B).
 
 ## Estrutura
 
